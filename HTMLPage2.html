@@ -1,0 +1,602 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+				<title>Are You Really My Bestie?</title>
+
+				<style>
+					@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+
+					* {
+					box-sizing: border-box;
+					margin: 0;
+					padding: 0;
+					}
+
+					body {
+					font-family: 'Nunito', sans-serif;
+					min-height: 100vh;
+					background: linear-gradient(135deg, #ffd6e7, #e6dcff, #d5f1ff, #ffe4d2);
+					color: #653d68;
+					overflow-x: hidden;
+					}
+
+					.stickers {
+					position: fixed;
+					inset: 0;
+					pointer-events: none;
+					overflow: hidden;
+					z-index: 0;
+					}
+
+					.sticker {
+					position: absolute;
+					font-size: 35px;
+					animation: float 5s ease-in-out infinite;
+					}
+
+					.sticker:nth-child(1) {top: 8%; left: 5%;}
+					.sticker:nth-child(2) {top: 18%; right: 8%; animation-delay: 1s;}
+					.sticker:nth-child(3) {bottom: 15%; left: 8%; animation-delay: 2s;}
+					.sticker:nth-child(4) {bottom: 10%; right: 7%; animation-delay: 1.5s;}
+					.sticker:nth-child(5) {top: 55%; left: 3%; animation-delay: 2.5s;}
+					.sticker:nth-child(6) {top: 65%; right: 3%; animation-delay: .5s;}
+
+					@keyframes float {
+					0%, 100% {transform: translateY(0) rotate(-8deg);}
+					50% {transform: translateY(-18px) rotate(8deg);}
+					}
+
+					.container {
+					position: relative;
+					z-index: 1;
+					width: 92%;
+					max-width: 550px;
+					margin: 35px auto;
+					}
+
+					.card {
+					background: rgba(255,255,255,.82);
+					backdrop-filter: blur(12px);
+					padding: 30px 23px;
+					border-radius: 30px;
+					box-shadow: 0 12px 35px rgba(140, 90, 140, .15);
+					text-align: center;
+					border: 2px solid white;
+					}
+
+					h1 {
+					font-size: 30px;
+					line-height: 1.2;
+					color: #d65d91;
+					font-weight: 900;
+					margin: 15px 0;
+					}
+
+					h2 {
+					color: #bd6198;
+					margin-bottom: 15px;
+					}
+
+					p {
+					line-height: 1.6;
+					margin: 10px 0;
+					}
+
+					input {
+					width: 100%;
+					padding: 15px;
+					border: 2px solid #f3b7d4;
+					border-radius: 15px;
+					outline: none;
+					font-size: 16px;
+					font-family: inherit;
+					margin: 15px 0;
+					background: #fff8fc;
+					color: #653d68;
+					}
+
+					button {
+					border: none;
+					border-radius: 15px;
+					padding: 14px 22px;
+					background: linear-gradient(135deg, #ff85b3, #c58aff);
+					color: white;
+					font-family: inherit;
+					font-size: 16px;
+					font-weight: 900;
+					cursor: pointer;
+					transition: .25s;
+					box-shadow: 0 5px 12px #e6b4d4;
+					}
+
+					button:hover {
+					transform: translateY(-3px) scale(1.02);
+					}
+
+					button:disabled {
+					opacity: .5;
+					cursor: not-allowed;
+					}
+
+					.full {
+					width: 100%;
+					margin-top: 12px;
+					}
+
+					.hidden {
+					display: none;
+					}
+
+					.small {
+					font-size: 13px;
+					color: #9b79a0;
+					}
+
+					.progress {
+					width: 100%;
+					height: 12px;
+					background: #f3d9ec;
+					border-radius: 20px;
+					margin: 18px 0;
+					overflow: hidden;
+					}
+
+					.progress-bar {
+					height: 100%;
+					width: 0%;
+					background: linear-gradient(90deg, #ff82b5, #aa8aff);
+					transition: .4s;
+					border-radius: 20px;
+					}
+
+					.question {
+					font-size: 21px;
+					font-weight: 900;
+					margin: 22px 0;
+					color: #784b80;
+					}
+
+					.option {
+					display: block;
+					width: 100%;
+					background: #fff0f7;
+					color: #784b80;
+					border: 2px solid #f6c9df;
+					box-shadow: none;
+					margin: 10px 0;
+					text-align: left;
+					}
+
+					.option.selected {
+					background: #e9dcff;
+					border-color: #b28bea;
+					}
+
+					.score {
+					font-size: 65px;
+					color: #e16c9f;
+					font-weight: 900;
+					margin: 15px 0;
+					}
+
+					.warning {
+					background: #ffe3eb;
+					padding: 18px;
+					border-radius: 20px;
+					margin: 20px 0;
+					color: #c44b79;
+					font-weight: 900;
+					}
+
+					table {
+					width: 100%;
+					border-collapse: collapse;
+					margin-top: 20px;
+					}
+
+					td, th {
+					padding: 10px 5px;
+					border-bottom: 1px solid #f1d6e8;
+					font-size: 14px;
+					}
+
+					th {
+					color: #d65d91;
+					}
+				</style>
+			</head>
+
+	<body>
+
+		<div class="stickers">
+			<span class="sticker">🎀</span>
+			<span class="sticker">😭</span>
+			<span class="sticker">💅</span>
+			<span class="sticker">🧸</span>
+			<span class="sticker">🤡</span>
+			<span class="sticker">💗</span>
+		</div>
+
+		<div class="container">
+
+			<!-- WELCOME PAGE -->
+			<section class="card" id="welcome">
+				<div style="font-size:55px">👀💗</div>
+				<h1>ARE YOU REALLY MY BESTIE?</h1>
+				<p>Let's find out how well you actually know me!</p>
+				<p>10 questions. No cheating. I am watching you. 👁️</p>
+
+				<input id="friendName" type="text" placeholder="Enter your name..." maxlength="30">
+
+					<button class="full" type="button" onclick="startQuiz()">
+						LET'S FIND OUT! 💅
+					</button>
+					<p class="small">Be honest. Your friendship is on the line. 😂</p>
+				</section>
+
+			<!-- QUIZ PAGE -->
+			<section class="card hidden" id="quiz">
+				<h2>BESTIE CHALLENGE 💗</h2>
+				<p id="questionNumber">Question 1 of 10</p>
+
+				<div class="progress">
+					<div class="progress-bar" id="progressBar"></div>
+				</div>
+
+				<div class="question" id="questionText"></div>
+				<div id="options"></div>
+
+				<button class="full" id="nextBtn" onclick="nextQuestion()" disabled="">
+					NEXT →
+				</button>
+			</section>
+
+			<!-- RESULT PAGE -->
+			<section class="card hidden" id="result">
+				<div style="font-size:55px" id="resultSticker">🎉</div>
+				<h1 id="resultTitle">YOUR RESULTS!</h1>
+
+				<p id="resultName"></p>
+				<div class="score" id="finalScore">0/10</div>
+
+				<p id="resultMessage"></p>
+				<div id="blockedMessage"></div>
+
+				<button class="full" onclick="location.reload()">PLAY AGAIN 🔄</button>
+			</section>
+
+			<!-- PRIVATE ADMIN PAGE -->
+			<section class="card hidden" id="admin">
+				<h1>ARUBA'S PRIVATE LEADERBOARD 👑</h1>
+				<p>Only Aruba should access this page.</p>
+				<div id="leaderboardContent"></div>
+				<button class="full" onclick="location.href=location.pathname">BACK</button>
+			</section>
+
+		</div>
+
+		<script>
+			const questions = [
+			{
+			q: "What's Aruba's favourite food?",
+			a: ["Pizza", "Biryani", "Pasta", "Burger"],
+			correct: 1
+			},
+			{
+			q: "What's Aruba's favourite colour?",
+			a: ["Pink", "Black", "Blue", "Purple"],
+			correct: 2
+			},
+			{
+			q: "What's Aruba's favourite hobby?",
+			a: ["Cooking", "Reading novels", "Dancing", "Painting"],
+			correct: 1
+			},
+			{
+			q: "What's Aruba's dream destination?",
+			a: ["Paris", "London", "Makkah", "Dubai"],
+			correct: 2
+			},
+			{
+			q: "What makes Aruba happiest?",
+			a: ["Shopping", "Rainy weather", "Parties", "Travelling"],
+			correct: 1
+			},
+			{
+			q: "What's Aruba's biggest pet peeve?",
+			a: ["Loud music", "Being ignored", "Late replies", "Messy rooms"],
+			correct: 1
+			},
+			{
+			q: "What is Aruba's biggest fear?",
+			a: ["Darkness", "Heights", "Losing loved ones", "Spiders"],
+			correct: 2
+			},
+			{
+			q: "What's Aruba's most repeated phrase?",
+			a: ["Oh really?", "Kher choro", "I don't know", "Whatever"],
+			correct: 1
+			},
+			{
+			q: "What does Aruba do when she's upset?",
+			a: ["Gets angry", "Cries", "Stays quiet", "Starts laughing"],
+			correct: 2
+			},
+			{
+			q: "What is Aruba's dream achievement?",
+			a: ["Becoming famous", "Travelling the world", "Becoming financially independent", "Owning a restaurant"],
+			correct: 2
+			}
+			];
+
+			let current = 0;
+			let score = 0;
+			let selected = null;
+			let playerName = "";
+
+			function showPage(id) {
+			["welcome", "quiz", "result", "admin"].forEach(page => {
+			document.getElementById(page).classList.add("hidden");
+			});
+			document.getElementById(id).classList.remove("hidden");
+			}
+
+			function startQuiz() {
+			playerName = document.getElementById("friendName").value.trim();
+
+			if (!playerName) {
+			alert("Please enter your name first! 😭");
+			return;
+			}
+
+			current = 0;
+			score = 0;
+			showPage("quiz");
+			loadQuestion();
+			}
+			function playTapSound() {
+			const AudioContextClass =
+			window.AudioContext || window.webkitAudioContext;
+
+			if (!AudioContextClass) return;
+
+			const audio = new AudioContextClass();
+			const oscillator = audio.createOscillator();
+			const volume = audio.createGain();
+
+			oscillator.connect(volume);
+			volume.connect(audio.destination);
+
+			oscillator.frequency.value = 650;
+			volume.gain.value = 0.08;
+
+			oscillator.start();
+			oscillator.stop(audio.currentTime + 0.12);
+
+			oscillator.onended = () => audio.close();
+			}
+
+			function loadQuestion() {
+			selected = null;
+			const q = questions[current];
+
+			document.getElementById("questionNumber").textContent =
+			`Question ${current + 1} of ${questions.length}`;
+
+			document.getElementById("questionText").textContent = q.q;
+
+			document.getElementById("progressBar").style.width =
+			`${(current / questions.length) * 100}%`;
+
+			const options = document.getElementById("options");
+			options.innerHTML = "";
+
+			q.a.forEach((answer, index) => {
+			const btn = document.createElement("button");
+			btn.className = "option";
+			btn.textContent = answer;
+
+			btn.onclick = () => {
+			if (selected !== null) return;
+
+			selected = index;
+			playTapSound();
+
+			const allButtons = document.querySelectorAll(".option");
+
+			allButtons.forEach((b, i) => {
+			b.disabled = true;
+
+			if (i === q.correct) {
+			b.style.backgroundColor = "#b9f5c8";
+			b.style.borderColor = "#28a745";
+			b.style.color = "#155724";
+			}
+
+			if (i === selected && selected !== q.correct) {
+			b.style.backgroundColor = "#ffc4c4";
+			b.style.borderColor = "#dc3545";
+			b.style.color = "#842029";
+			}
+			});
+
+			const feedback = document.createElement("p");
+			feedback.style.textAlign = "center";
+			feedback.style.fontWeight = "bold";
+
+			feedback.textContent = selected === q.correct
+			? "CORRECT! YOU KNOW ARUBA! 💗"
+			: "OOPS! WRONG ANSWER! 😭 Correct answer: " + q.a[q.correct];
+
+			options.appendChild(feedback);
+
+			document.getElementById("nextBtn").disabled = false;
+			};
+
+			options.appendChild(btn);
+			});
+
+			document.getElementById("nextBtn").textContent =
+			current === questions.length - 1
+			? "SEE MY RESULTS 🎉"
+			: "NEXT →";
+
+			document.getElementById("nextBtn").disabled = true;
+			}
+			function nextQuestion() {
+			if (selected === null) return;
+
+			if (selected === questions[current].correct) {
+			score++;
+			}
+
+			current++;
+
+			if (current < questions.length) {
+    loadQuestion();
+  } else {
+    finishQuiz();
+  }
+}
+
+async function finishQuiz() {
+  document.getElementById("progressBar").style.width = "100%";
+
+  const record = {
+    name: playerName,
+    score: score,
+    date: new Date().toLocaleString()
+  };
+
+  const records = JSON.parse(
+    localStorage.getItem("arubaScores") || "[]"
+  );
+
+  records.push(record);
+  localStorage.setItem("arubaScores", JSON.stringify(records));
+
+  showPage("result");
+
+  document.getElementById("resultName").textContent =
+    `Hey ${playerName}, here's your final score!`;
+
+  document.getElementById("finalScore").textContent = `${score}/10`;
+
+  if (score < 7) {
+    document.getElementById("resultSticker").textContent = "🚫🤡";
+    document.getElementById("resultTitle").textContent = "OH NOOO!";
+    document.getElementById("resultMessage").textContent =
+      "We need to talk about this friendship...";
+
+    document.getElementById("blockedMessage").innerHTML =
+      `<div class="warning">
+        SCORED LESS THAN 7?<br><br>
+        YOU'RE BLOCKED! 😂🚫<br><br>
+        Sorry, you don't know Aruba well enough!
+      </div>`;
+  } else {
+    document.getElementById("resultSticker").textContent = "👑💗";
+    document.getElementById("resultTitle").textContent = "BESTIE MATERIAL!";
+    document.getElementById("resultMessage").textContent =
+      "Okayyy! You actually know Aruba pretty well! 💅";
+
+    document.getElementById("blockedMessage").innerHTML =
+      `<div class="warning">YOU PASSED THE BESTIE TEST! 🎀</div>`;
+	  }
+
+	  try {
+	  await window.saveScore(record);
+	  console.log("Score saved to Firebase! 💗");
+	  } catch (error) {
+	  console.error("Score could not be saved:", error);
+	  }
+	  }
+
+	  // PRIVATE ADMIN ACCESS
+
+	  function escapeHTML(value) {
+	  return String(value).replace(/[&<>"']/g, char => ({
+	  "&": "&amp;",
+	  "<": "&lt;",
+	  ">": "&gt;",
+	  '"': "&quot;",
+	  "'": "&#39;"
+	  }[char]));
+	  }
+
+	  function openAdmin() {
+	  const password = prompt("Enter Aruba's admin password:");
+
+	  if (password !== "ARUBA2026") {
+	  alert("Access denied! 🚫");
+	  location.href = location.pathname;
+	  return;
+	  }
+
+	  showPage("admin");
+
+	  const records = JSON.parse(
+	  localStorage.getItem("arubaScores") || "[]"
+	  );
+
+	  records.sort((a, b) => b.score - a.score);
+
+	  let html = `<table>
+		  <tr>
+			  <th>Rank</th>
+			  <th>Name</th>
+			  <th>Score</th>
+		  </tr>`;
+
+		  records.forEach((person, index) => {
+		  html += `<tr>
+			  <td>${index + 1}</td>
+			  <td>${escapeHTML(person.name)}</td>
+			  <td>${person.score}/10</td>
+		  </tr>`;
+		  });
+		  html += "</table>";
+	  if (records.length === 0) {
+	  html = "<p>No friends have completed the quiz yet.</p>";
+	  }
+
+	  document.getElementById("leaderboardContent").innerHTML = html;
+	  }
+
+	  if (new URLSearchParams(location.search).get("admin") === "1") {
+	  openAdmin();
+	  }
+  </script>
+		<script type="module">
+			import { initializeApp } from "https://www.gstatic.com/firebasejs/13.2.0/firebase-app.js";
+			import {
+			getFirestore,
+			collection,
+			addDoc,
+			serverTimestamp
+			} from "https://www.gstatic.com/firebasejs/13.2.0/firebase-firestore.js";
+			const firebaseConfig = {
+			apiKey: "AIzaSyAQWx20UUx1FIrgRhq5H3wkGDlYMTAMVzs",
+			authDomain: "bestie-quiz-98376.firebaseapp.com",
+			projectId: "bestie-quiz-98376",
+			storageBucket: "bestie-quiz-98376.firebasestorage.app",
+			messagingSenderId: "610986963009",
+			appId: "1:610986963009:web:83842ef0ac2067ddd1d6c0"
+			};
+
+			const app = initializeApp(firebaseConfig);
+			window.db = getFirestore(app);
+			window.saveScore = async function(record) {
+			await addDoc(collection(window.db, "scores"), {
+			name: record.name,
+			score: record.score,
+			createdAt: serverTimestamp()
+			});
+			};
+
+			console.log("Firebase connected! 💗");
+		</script>
+	</body>
+</html>
